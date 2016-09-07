@@ -5,12 +5,12 @@
     <title>User Story Manager</title>
 </head>
 <body>
-<p><h2>User Stories</h2></p>
+<h2>User Stories</h2>
 
 <p><form action="/story" method="get"><button>Add a new User Story</button></form></p>
 <p><form action="/story" method="get"><button>Delete User Story</button></form></p>
 
-<table style="border:1px solid black;" width="90%">
+<table style="border:1px solid black;" width="100%">
     <tr>
         <th width="10%" align="center" style="border:1px solid black;">ID</th>
         <th width="5%" align="center" style="border:1px solid black;">Story Title</th>
@@ -31,6 +31,11 @@
                 <td align="center" style="border:1px solid black;">{{i.estimation}}</td>
                 <td align="center" style="border:1px solid black;">{{i.status}}</td>
 
+                <td width="10%" align="left" style="border:1px solid black;">
+                    <a href="story/{{ i.id }}">EDIT</a></td>
+
+                <td width="10%" align="left" style="border:1px solid black;" >
+                    <a href="delete/{{ i.id }}">DEL</a></td>
             </tr>
             {% endfor %}
     </tr>
