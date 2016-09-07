@@ -1,6 +1,14 @@
 from peewee import *
+import os.path
 
-db_user = input("Please enter your database username:\n")
+def connect_data():
+    filename = os.path.join(os.path.dirname(__file__), 'user.txt')
+    with open(filename) as f:
+        data = f.read()
+        return data.strip("\n")
+
+# db_user = input("Please enter your database username:\n")
+db_user = connect_data()
 db = PostgresqlDatabase('story_manager', user=db_user)
 
 class BaseModel(Model):
