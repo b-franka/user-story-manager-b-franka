@@ -1,15 +1,20 @@
 from peewee import *
 import os.path
+import os
 
 def connect_data():
-    filename = os.path.join(os.path.dirname(__file__), 'user.txt')
-    with open(filename) as f:
-        data = f.read()
-        return data.strip("\n")
+    try:
+        filename = os.path.join(os.path.dirname(__file__), 'user.txt')
+        with open(filename) as f:
+            data = f.read()
+            return data.strip("\n")
+    except FileNotFoundError:
+        print("""Please create a "user.txt" file before starting the application(see:readme.md)""")
+        quit()
 
-# db_user = input("Please enter your database username:\n")
 db_user = connect_data()
 db = PostgresqlDatabase('story_manager', user=db_user)
+
 
 class BaseModel(Model):
     """A base model that will use our Postgresql database"""
