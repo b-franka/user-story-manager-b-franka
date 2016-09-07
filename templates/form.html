@@ -11,57 +11,57 @@
 <body>
     {% if status == "new" %}
         <form action="/story" method="post">
+
         <h1>User Story Manager- Add a new story:</h1><br>
-        <label for="story_title"><b>Story Title</b></label><br>
-        <textarea required name="story_title" id="story_title" rows="5" cols="50"></textarea><br>
-        <label for="user_story">User Story</label><br>
-        <textarea required name="user_story" id="user_story" rows="10" cols="50"></textarea><br>
-        <label for="acceptance_criteria">Acceptance Criteria</label><br>
-        <textarea required name="acceptance_criteria" id="acceptance_criteria"rows="10" cols="50"></textarea><br>
-        <label for="business_value">Business Value</label><br>
-        <input type="number" name="business_value" id="business_value" min="100" max="1500" step="100" value="0"><br>
-        <label for="estimation">Estimation [h]</label><br>
-        <input type="number" name="estimation" id="estimation" min="0.5" max="40" step="0.5" value="0"><br>
-        <label for="status">Status</label><br>
-        <input list="status" name="status" id="status">
-        <datalist id="status">
-            <option value="Planning">
-            <option value="To do">
-            <option value="In progress">
-            <option value="Review">
-            <option value="Done">
-        </datalist>
+
+        <label for="story_title1"><b>Story Title</b></label><br>
+        <textarea required name="story_title" id="story_title1" rows="5" cols="50"></textarea><br>
+        <label for="user_story1"><b>User Story</b></label><br>
+        <textarea required name="user_story" id="user_story1" rows="10" cols="50"></textarea><br>
+        <label for="acceptance_criteria1"><b>Acceptance Criteria</b></label><br>
+        <textarea required name="acceptance_criteria" id="acceptance_criteria1" rows="10" cols="50"></textarea><br>
+        <label for="business_value1"><b>Business Value</b></label><br>
+        <input type="number" name="business_value" id="business_value1" min="100" max="1500" step="100" value="0"><br>
+        <label for="estimation1"><b>Estimation [h]</b></label><br>
+        <input type="number" name="estimation" id="estimation1" min="0.5" max="40" step="0.5" value="0"><br>
+        <label for="status1"><b>Status</b></label><br>
+        <select id="status1" name="status">
+            <option value="planning">Planning</option>
+            <option value="to do">To do</option>
+            <option value="in progress">In progress</option>
+            <option value="review">Review</option>
+            <option value="done">Done</option>
+        </select>
         <br>
+
         <input type="submit" value="Save">
     </form>
     {% elif status == "edit" %}
-            {% for i in data %}
-                <form action="/story/<story_id>" method="post">
+                <form action="/story/<int:story_id>" method="post">
                     <h1>User Story Manager - Edit Story</h1><br>
-                    <label for="story_title">Story Title</label><br>
-                    <textarea name="story_title" id="story_title" rows="5" cols="50">{{ i.story_title }}</textarea><br>
-                    <label for="user_story">User Story</label><br>
-                    <textarea name="user_story" id="user_story" rows="10" cols="50">{{ i.user_story }}</textarea><br>
-                    <label for="acceptance_criteria">Acceptance Criteria</label><br>
-                    <textarea name="acceptance_criteria" id="acceptance_criteria"rows="10" cols="50">{{ i.acceptance_criteria }}</textarea><br>
-                    <label for="business_value">Business Value</label><br>
-                    <input type="number" name="business_value" id="business_value" min="100" max="1500" step="100" value='{{ i.business_value }}'><br>
-                    <label for="estimation">Estimation [h]</label><br>
-                    <input type="number" name="estimation" id="estimation" min="0.5" max="40" step="0.5" value='{{ i.estimation }}'><br>
-                    <label for="status">Status</label><br>
-                    <input list="status" name="status" id="status">
-                    <datalist id="status">
-                        <option selected>{{ i.status }}</option>
-                        <option value="Planning">
-                        <option value="To do">
-                        <option value="In progress">
-                        <option value="Review">
-                        <option value="Done">
-                    </datalist>
+                    <label for="story_title"><b>Story Title</b></label><br>
+                    <textarea name="story_title" id="story_title" rows="5" cols="50">{{ data.story_title }}</textarea><br>
+                    <label for="user_story"><b>User Story</b></label><br>
+                    <textarea name="user_story" id="user_story" rows="10" cols="50">{{ data.user_story }}</textarea><br>
+                    <label for="acceptance_criteria"><b>Acceptance Criteria</b></label><br>
+                    <textarea name="acceptance_criteria" id="acceptance_criteria"rows="10" cols="50">{{ data.acceptance_criteria }}</textarea><br>
+                    <label for="business_value"><b>Business Value</b></label><br>
+                    <input type="number" name="business_value" id="business_value" min="100" max="1500" step="100" value='{{ data.business_value }}'><br>
+                    <label for="estimation"><b>Estimation [h]</b></label><br>
+                    <input type="number" name="estimation" id="estimation" min="0.5" max="40" step="0.5" value='{{ data.estimation }}'><br>
+                    <label for="status"><b>Status</b></label><br>
+                    <select id="status">
+                        <option selected>{{ data.status }}</option>
+                        <option value="planning">Planning</option>
+                        <option value="to do">To do</option>
+                        <option value="in progress">In progress</option>
+                        <option value="review">Review</option>
+                        <option value="done">Done</option>
+                    </select>
                     <br>
+
                     <input type="submit" value="Save">
                 </form>
-            {% endfor %}
     {% endif %}
 </body>
 </html>
