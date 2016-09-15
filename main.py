@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from flask import Flask, redirect, url_for, render_template, request
-from stories import *
+from stories import Story
 
 app = Flask(__name__)
 
@@ -37,14 +37,14 @@ def story_view(story_id):
 
 @app.route('/story/<int:story_id>', methods=["POST"])
 def story_editing(story_id):
-    if request.method == "POST":
-        story = Story.update(story_title=request.form["story_title"],
-                             user_story=request.form["user_story"],
-                             acceptance_criteria=request.form["acceptance_criteria"],
-                             business_value=request.form["business_value"],
-                             estimation=request.form["estimation"],
-                             status=request.form["status"]).where(Story.id==story_id)
-        story.save()
+    story = Story.get(Story.id == story_id)
+    story.story_title=request.form["story_title"]
+    story.user_story=request.form["user_story"]
+    story.acceptance_criteria=request.form["acceptance_criteria"]
+    story.business_value=request.form["business_value"]
+    story.estimation=request.form["estimation"]
+    story.status=request.form["status"]
+    story.save()
     return redirect(url_for("story_listing"))
 
 

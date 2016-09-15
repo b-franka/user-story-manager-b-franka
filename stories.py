@@ -1,3 +1,5 @@
+import peewee
+import psycopg2
 from peewee import *
 import os.path
 import os
@@ -11,10 +13,11 @@ def connect_data():
     except FileNotFoundError:
         print("""Please create a "user.txt" file before starting the application(see:readme.md)""")
         quit()
-
-db_user = connect_data()
-db = PostgresqlDatabase('story_manager', user=db_user)
-
+try:
+    db_user = connect_data()
+    db = PostgresqlDatabase('story_manager', user=db_user)
+except psycopg2.OperationalError:
+    print("jj")
 
 class BaseModel(Model):
     """A base model that will use our Postgresql database"""
@@ -31,4 +34,4 @@ class Story(BaseModel):
     status = CharField()
 
 db.connect()
-db.create_table(Story,safe=True)
+db.create_table(Story, safe=True)
