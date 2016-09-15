@@ -38,34 +38,23 @@ def story_view(story_id):
 @app.route('/story/<int:story_id>', methods=["POST"])
 def story_editing(story_id):
     story = Story.get(Story.id == story_id)
-    story.story_title=request.form["story_title"]
-    story.user_story=request.form["user_story"]
-    story.acceptance_criteria=request.form["acceptance_criteria"]
-    story.business_value=request.form["business_value"]
-    story.estimation=request.form["estimation"]
-    story.status=request.form["status"]
+    story.story_title = request.form["story_title"]
+    story.user_story = request.form["user_story"]
+    story.acceptance_criteria = request.form["acceptance_criteria"]
+    story.business_value = request.form["business_value"]
+    story.estimation = request.form["estimation"]
+    story.status = request.form["status"]
     story.save()
     return redirect(url_for("story_listing"))
 
 
-# @app.route('/story/<int:story_id>', methods=["GET", "POST"])
-# def story_editing():
-#     if request.method == "POST":
-#         Story.update(story_title=request.form["story_title"],
-#                      user_story=request.form["user_story"],
-#                      acceptance_criteria=request.form["acceptance_criteria"],
-#                      business_value=request.form["business_value"],
-#                      estimation=request.form["estimation"],
-#                      status=request.form["status"]).where(Story.id==story_id)
-#     else:
-#         return render_template('form.html', status='edit')
+@app.route('/delete/<int:story_id>', methods=["GET", "POST"])
+def story_del(story_id):
+    story_to_be_deleted = Story.get(Story.id == story_id)
+    story_to_be_deleted.delete_instance()
+    return redirect(url_for("story_listing"))
 
-# @app.route('/')
-# @app.route('/list', methods=["GET", "POST"])
-# def story_listing():
-#     # if request.method == "POST":
-#     stories = Story.select()
-#     return render_template('list.html', stories=stories)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
